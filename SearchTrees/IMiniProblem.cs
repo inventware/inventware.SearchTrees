@@ -5,10 +5,19 @@ namespace SearchTrees
 {
     internal interface IMiniProblem
     {
-        IList<NodeWithState> Nodes { get; }
+        IList<Node> Nodes { get; }
 
-        StatesSpace statesSpace { get; }
+        IList<string> statesSpace { get; }
 
-        State InitialState { get; }
+        Node SolutionNode { get; }
+
+        int Depth { get; }
+
+        decimal costOfTheWay { get; }
+
+        void AddChildToParent(string childNodeName, string parentNodeName, decimal
+            costOfTheWay, string action);
+
+        void SearchTree();
     }
 }

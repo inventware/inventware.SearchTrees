@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SearchTrees
 {
-    public class RomeniaMapProblem
+    public class RomeniaMapProblem: IMiniProblem
     {
         private decimal _costOfTheWay;
         private int _depth;
