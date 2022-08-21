@@ -13,10 +13,10 @@ namespace SearchTrees
 
         int Depth { get; }
 
-        decimal costOfTheWay { get; }
+        decimal CostOfTheWay { get; }
 
         void AddChildToParent(string childNodeName, string parentNodeName, decimal
-            costOfTheWay, string action);
+            costOfTheWay, NodeAction action);
 
         void SearchTree();
     }

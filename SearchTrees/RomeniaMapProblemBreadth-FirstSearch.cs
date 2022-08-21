@@ -5,24 +5,26 @@ using System.Linq;
 
 namespace SearchTrees
 {
-    public class RomeniaMapProblem: IMiniProblem
+    public class RomeniaMapProblemBreadthFirstSearch: IMiniProblem
     {
         private decimal _costOfTheWay;
         private int _depth;
         private string _initialState;
         private string _objectiveState;
+        private string _actionsAlongTheWay;
         private Node _solutionNode;
         private IList<string> _statesSpace;
         private IList<Node> _nodes;
 
 
-        public RomeniaMapProblem(string initialStateName, string objectiveStateName,
+        public RomeniaMapProblemBreadthFirstSearch(string initialStateName, string objectiveStateName,
             IList<string> statesSpace)
         {
             _costOfTheWay = 0;
             _depth = 0;
             _nodes = new List<Node>();
             _statesSpace = statesSpace;
+            _actionsAlongTheWay = string.Empty;
             _initialState = InstanceStateByTheName(initialStateName);
             _objectiveState = InstanceStateByTheName(objectiveStateName);
         }
@@ -40,7 +42,7 @@ namespace SearchTrees
                     "de estados do problema.");
             }
 
-            _nodes.Add(new Node(stateName, null, "", 0));
+            _nodes.Add(new Node(stateName, null, NodeAction.UNDEFINED, 0));
             return state.FirstOrDefault();
         }
 
@@ -70,14 +72,19 @@ namespace SearchTrees
             get => _depth;
         }
 
-        public decimal costOfTheWay
+        public decimal CostOfTheWay
         {
             get => _costOfTheWay;
         }
 
+        public string ActionsAlongTheWay
+        {
+            get => _actionsAlongTheWay;
+        }
+
 
         public void AddChildToParent(string childNodeName, string parentNodeName, decimal
-            costOfTheWay, string action)
+            costOfTheWay, NodeAction action)
         {
             if (string.IsNullOrEmpty(childNodeName)) {
                 throw new ArgumentNullException("O nome da nó filho não pode ser um valor nulo ou vazio.");
@@ -91,7 +98,7 @@ namespace SearchTrees
         }
 
         private void GetParentNode(string childNodeName, string parentNodeName,
-            decimal costOfTheWay, string action)
+            decimal costOfTheWay, NodeAction action)
         {
             var parentNode = _nodes.FirstOrDefault(field => field.State == parentNodeName);
             if (parentNode == null) {
@@ -102,7 +109,7 @@ namespace SearchTrees
         }
 
         private void AddChildNodeTo(Node parentNode, string childNodeName,
-            decimal costOfTheWay, string action)
+            decimal costOfTheWay, NodeAction action)
         {
             var childState = _statesSpace.Where(field => field.Equals(childNodeName)).FirstOrDefault();
             if (childState == null)
@@ -152,8 +159,8 @@ namespace SearchTrees
                         }
                     }
                 });
-                ExpandLevel(expandedNodes);
                 _depth += 1;
+                ExpandLevel(expandedNodes);
             }
         }
 
@@ -163,6 +170,7 @@ namespace SearchTrees
             foreach (var childNode in childrenNodes)
             {
                 _costOfTheWay += childNode.CostOfTheWay;
+                _actionsAlongTheWay += node.State + " -> " + node.Action + " -> " + childNode.State + " | "; 
             }
             return childrenNodes;
         }
