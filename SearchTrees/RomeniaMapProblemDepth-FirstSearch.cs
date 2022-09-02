@@ -18,7 +18,6 @@ namespace SearchTrees
         private IList<Node> _nodes;
         private int _depthLimit;
         private Stack<Node> _stackNodesOfTree;
-        private IList<Node> _visitedNodesOfMap;
 
 
         public RomeniaMapProblemDepthFirstSearch(string initialStateName, string objectiveStateName,
@@ -37,14 +36,13 @@ namespace SearchTrees
         private string InstanceStateByTheName(string stateName)
         {
             if (string.IsNullOrEmpty(stateName)) {
-                throw new ArgumentNullException("O nome do estado não pode ser nulo ou vazio.");
+                throw new ArgumentNullException("The state name cannot be null or empty.");
             }
 
             var state = _statesSpace.Where(field => field.Equals(stateName));
             if (!state.Any())
             {
-                throw new ArgumentException($"O nome do estado '{stateName}', não pertence ao espaço " +
-                    "de estados do problema.");
+                throw new ArgumentException($"The state name '{stateName}' of the states space wasn't found.");
             }
 
             _nodes.Add(new Node(stateName, null, NodeAction.UNDEFINED, 0));
@@ -52,56 +50,32 @@ namespace SearchTrees
         }
 
 
-        public IList<string> statesSpace
-        {
-            get => _statesSpace;
-        }
+        public IList<string> statesSpace { get => _statesSpace; }
 
-        public string InitialState
-        {
-            get => _initialState;
-        }
+        public string InitialState { get => _initialState; }
 
-        public IList<Node> Nodes
-        {
-            get => _nodes;
-        }
+        public IList<Node> Nodes { get => _nodes; }
 
-        public Node SolutionNode
-        {
-            get => _solutionNode;
-        }
+        public Node SolutionNode { get => _solutionNode; }
 
-        public int Depth
-        {
-            get => _depth;
-        }
+        public int Depth { get => _depth; }
 
-        public int DepthLimit
-        {
-            get => _depthLimit;
-        }
+        public int DepthLimit { get => _depthLimit; }
 
-        public decimal CostOfTheWay
-        {
-            get => _costOfTheWay;
-        }
+        public decimal CostOfTheWay { get => _costOfTheWay; }
 
-        public string ActionsAlongTheWay
-        {
-            get => _actionsAlongTheWay;
-        }
+        public string ActionsAlongTheWay { get => _actionsAlongTheWay; }
 
 
         public void AddChildToParent(string childNodeName, string parentNodeName, decimal
             costOfTheWay, NodeAction action)
         {
             if (string.IsNullOrEmpty(childNodeName)) {
-                throw new ArgumentNullException("O nome da nó filho não pode ser um valor nulo ou vazio.");
+                throw new ArgumentNullException("The child node name cannot be a null or empty value.");
             }
 
             if (string.IsNullOrEmpty(parentNodeName)) {
-                throw new ArgumentNullException("O nome da nó pai não pode ser um valor nulo ou vazio.");
+                throw new ArgumentNullException("The parent node name cannot be a null or empty value.");
             }
 
             GetParentNode(childNodeName, parentNodeName, costOfTheWay, action);
@@ -112,8 +86,8 @@ namespace SearchTrees
         {
             var parentNode = _nodes.FirstOrDefault(field => field.State == parentNodeName);
             if (parentNode == null) {
-                throw new ArgumentException($"O nome do estado pai '{parentNodeName}', não pertence ao espaço " +
-                    "de estados do problema.");
+                throw new ArgumentException($"The parent state name '{parentNodeName}' " + 
+                    "wasn't found in the states space.");
             }
             AddChildNodeTo(parentNode, childNodeName, costOfTheWay, action);
         }
@@ -124,8 +98,8 @@ namespace SearchTrees
             var childState = _statesSpace.Where(field => field.Equals(childNodeName)).FirstOrDefault();
             if (childState == null)
             {
-                throw new ArgumentException($"O nome do estado filho '{childNodeName}', não pertence ao espaço " +
-                    "de estados do problema.");
+                throw new ArgumentException($"The child state name '{childNodeName}' " +
+                    "wasn't found in the states space.");
             }
             _nodes.Add(new Node(childState, parentNode, action, costOfTheWay));
         }

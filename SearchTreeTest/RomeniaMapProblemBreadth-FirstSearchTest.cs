@@ -101,7 +101,7 @@ namespace SearchTreeTest
             }
             catch (ArgumentException err)
             {
-                Assert.AreEqual(err.Message, "O nome do estado 'UnknownCity', não pertence ao espaço de estados do problema.");
+                Assert.AreEqual(err.Message, "The state name 'UnknownCity' of the states space wasn't found.");
             }
         }
 
@@ -115,7 +115,7 @@ namespace SearchTreeTest
             }
             catch (ArgumentException err)
             {
-                Assert.IsTrue(err.Message.Contains("O nome do estado não pode ser nulo ou vazio."));
+                Assert.IsTrue(err.Message.Contains("The state name cannot be null or empty."));
             }
         }
 
@@ -129,7 +129,7 @@ namespace SearchTreeTest
             }
             catch (ArgumentException err)
             {
-                Assert.IsTrue(err.Message.Contains("O nome do estado não pode ser nulo ou vazio."));
+                Assert.IsTrue(err.Message.Contains("The state name cannot be null or empty."));
             }
         }
 
@@ -143,7 +143,7 @@ namespace SearchTreeTest
             }
             catch (ArgumentException err)
             {
-                Assert.AreEqual(err.Message, "O nome do estado 'UnknownCity', não pertence ao espaço de estados do problema.");
+                Assert.AreEqual(err.Message, "The state name 'UnknownCity' of the states space wasn't found.");
             }
         }
 
@@ -168,7 +168,7 @@ namespace SearchTreeTest
             }
             catch (ArgumentException err)
             {
-                Assert.IsTrue(err.Message.Contains("O nome da nó filho não pode ser um valor nulo ou vazio."));
+                Assert.IsTrue(err.Message.Contains("The child node name cannot be a null or empty value."));
             }
         }
 
@@ -185,7 +185,7 @@ namespace SearchTreeTest
             }
             catch (ArgumentException err)
             {
-                Assert.IsTrue(err.Message.Contains("O nome da nó pai não pode ser um valor nulo ou vazio."));
+                Assert.IsTrue(err.Message.Contains("The parent node name cannot be a null or empty value."));
             }
         }
 
@@ -201,8 +201,8 @@ namespace SearchTreeTest
             }
             catch (ArgumentException err)
             {
-                Assert.IsTrue(err.Message.Contains("O nome do estado pai 'Unknown', não pertence ao espaço " +
-                    "de estados do problema."));
+                Assert.IsTrue(err.Message.Contains("The parent state name 'Unknown' " +
+                    "wasn't found in the states space."));
             }
         }
 
@@ -219,8 +219,8 @@ namespace SearchTreeTest
             }
             catch (ArgumentException err)
             {
-                Assert.IsTrue(err.Message.Contains("O nome do estado filho 'Unknown', não pertence ao espaço " +
-                    "de estados do problema."));
+                Assert.IsTrue(err.Message.Contains("The child state name 'Unknown' " +
+                    "wasn't found in the states space."));
             }
         }
 
